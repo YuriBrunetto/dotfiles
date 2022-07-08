@@ -5,6 +5,8 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'honza/vim-snippets'
 Plug 'MaxMEllon/vim-jsx-pretty'
+" TypeScript
+Plug 'neovim/nvim-lspconfig'
 " Telescope
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
@@ -14,8 +16,7 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 " Git blame
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-repeat'
+Plug 'APZelos/blamer.nvim'
 " Theme
 Plug 'morhetz/gruvbox'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
@@ -38,9 +39,9 @@ call plug#end()
 silent! nmap <F2> :NERDTreeToggle<CR>
 silent! nmap <F3> :NERDTreeFocus<CR>
 
-
 syntax on
 
+let g:blamer_enabled=1
 let g:gruvbox_italic=1
 colorscheme gruvbox 
 
@@ -70,10 +71,12 @@ set undodir=~/vim/undo
 set undofile
 set undolevels=1000
 set undoreload=10000
-set listchars=tab:▸\ ,trail:·,nbsp:_,extends:❯,precedes:❮
 set scroll=5
-set encoding=utf8
-set guifont=DroidSansMono_Nerd_Font:h11
+
+set encoding=utf-8
+scriptencoding utf8
+set list
+set listchars=tab:▸\ ,trail:·,nbsp:_,extends:❯,precedes:❮
 
 " CoC
 let g:ctrlp_custom_ignore = 'dist\|node_modules\|DS_Store\|git'
@@ -104,5 +107,3 @@ inoremap <silent><expr> <c-space> coc#refresh()
 nmap <leader>rn <Plug>(coc-rename)
 
 nmap <silent> gf <Plug>(coc-definition)
-
-
