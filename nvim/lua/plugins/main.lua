@@ -164,7 +164,10 @@ return {
         "typescript",
         "vim",
         "yaml",
+        "php",
+        "blade",
       },
+      highlight = { enable = true },
     },
   },
 
