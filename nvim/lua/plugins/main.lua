@@ -13,7 +13,7 @@ return {
   {
     "folke/trouble.nvim",
     -- opts will be merged with the parent spec
-    opts = { use_diagnostic_signs = true },
+    opts = { use_diagnostic_signs = false },
   },
 
   -- disable trouble
@@ -73,16 +73,23 @@ return {
   },
 
   -- add pyright to lspconfig
+  -- {
+  --   "neovim/nvim-lspconfig",
+  --   ---@class PluginLspOpts
+  --   opts = {
+  --     ---@type lspconfig.options
+  --     servers = {
+  --       -- pyright will be automatically installed with mason and loaded with gruvboxlspconfig
+  --       pyright = {},
+  --     },
+  --   },
+  -- },
+
+  -- luarocks
   {
-    "neovim/nvim-lspconfig",
-    ---@class PluginLspOpts
-    opts = {
-      ---@type lspconfig.options
-      servers = {
-        -- pyright will be automatically installed with mason and loaded with gruvboxlspconfig
-        pyright = {},
-      },
-    },
+    "vhyrro/luarocks.nvim",
+    priority = 1000, -- Very high priority is required, luarocks.nvim should run as the first plugin in your config.
+    config = true,
   },
 
   -- add tsserver and setup with typescript.nvim instead of lspconfig
@@ -104,6 +111,15 @@ return {
       servers = {
         -- tsserver will be automatically installed with mason and loaded with lspconfig
         tsserver = {},
+        tailwindcss = {
+          hovers = true,
+          suggestions = true,
+          root_dir = function(fname)
+            local root_pattern =
+              require("lspconfig").util.root_pattern("tailwind.config.cjs", "tailwind.config.js", "postcss.config.js")
+            return root_pattern(fname)
+          end,
+        },
       },
       -- you can do any additional lsp server setup here
       -- return true if you don't want this server to be setup with lspconfig
