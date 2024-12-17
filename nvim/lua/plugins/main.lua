@@ -40,6 +40,10 @@ return {
   -- change some telescope options and a keymap to browse plugin files
   {
     "nvim-telescope/telescope.nvim",
+    dependencies = {
+      "nvim-telescope/telescope-fzf-native.nvim",
+      build = "make",
+    },
     keys = {
       -- add a keymap to browse plugin files
       -- stylua: ignore
@@ -57,6 +61,7 @@ return {
         sorting_strategy = "ascending",
         winblend = 0,
       },
+      extensions_list = { "fzf", "terms", "themes" },
     },
   },
 
@@ -71,19 +76,6 @@ return {
       end,
     },
   },
-
-  -- add pyright to lspconfig
-  -- {
-  --   "neovim/nvim-lspconfig",
-  --   ---@class PluginLspOpts
-  --   opts = {
-  --     ---@type lspconfig.options
-  --     servers = {
-  --       -- pyright will be automatically installed with mason and loaded with gruvboxlspconfig
-  --       pyright = {},
-  --     },
-  --   },
-  -- },
 
   -- luarocks
   {
@@ -107,7 +99,6 @@ return {
     },
     ---@class PluginLspOpts
     opts = {
-      ---@type lspconfig.options
       servers = {
         -- tsserver will be automatically installed with mason and loaded with lspconfig
         tsserver = {},
@@ -120,6 +111,9 @@ return {
             return root_pattern(fname)
           end,
         },
+        htmx = {
+          filetypes = { "html", "htmx" },
+        },
       },
       -- you can do any additional lsp server setup here
       -- return true if you don't want this server to be setup with lspconfig
@@ -128,6 +122,10 @@ return {
         -- example to setup with typescript.nvim
         tsserver = function(_, opts)
           require("typescript").setup({ server = opts })
+          return true
+        end,
+        htmx = function(_, opts)
+          require("lspconfig").htmx.setup(opts) -- Custom setup for htmx
           return true
         end,
         -- Specify * to use this function as a fallback for any server
