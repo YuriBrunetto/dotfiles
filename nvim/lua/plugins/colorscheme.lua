@@ -1,22 +1,31 @@
 return {
   -- add catppuccin
+  -- {
+  --   "catppuccin/nvim",
+  --   name = "catppuccin",
+  --   opts = {
+  --     flavour = "macchiato",
+  --     background = {
+  --       dark = "mocha",
+  --     },
+  --     transparent_background = true,
+  --   },
+  -- },
+
+  -- add gruvbox
   {
-    "catppuccin/nvim",
-    name = "catppuccin",
+    "ellisonleao/gruvbox.nvim",
+    name = "gruvbox",
     opts = {
-      flavour = "macchiato",
-      background = {
-        dark = "mocha",
-      },
-      transparent_background = true,
+      background = "dark",
     },
   },
 
-  -- configure LazyVim to load catppuccin
+  -- configure LazyVim to load theme
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "catppuccin",
+      colorscheme = "gruvbox",
     },
   },
 }
